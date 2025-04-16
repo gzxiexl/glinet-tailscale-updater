@@ -1,3 +1,11 @@
+修改了原大佬的workflows，仅仅编译了amd64和arm64，脚本未改。
+
+
+
+
+
+
+
 # Tailscale Update Script for GL.iNet Routers
 
 <img src="images/screen.jpg" width="400" align="right" alt="Profile Picture" style="border-radius: 10%;">
