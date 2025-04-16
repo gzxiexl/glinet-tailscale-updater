@@ -49,9 +49,8 @@ jobs:
         go-version: [stable]
         os: [linux]
         platform:
-          - arm
+          - amd64    # x86_64
           - arm64
-          - x86_64
     steps:
       - name: Checkout ${{ env.SOFTWARE_NAME }} repository
         uses: actions/checkout@v4
@@ -66,15 +65,9 @@ jobs:
         run: go mod download
       - name: Cross-compile
         run: |
-          if [[ "${{ matrix.platform }}" == "mipsle" ]]; then
-            GOOS=${{ matrix.os }} GOARCH=${{ matrix.platform }} GOMIPS=softfloat ./build_dist.sh \
-            --extra-small --box \
-            -o "${{ env.FILE_NAME }}-${{ matrix.os }}-${{ matrix.platform }}" ./cmd/${{ env.FILE_NAME }}
-          else
-            GOOS=${{ matrix.os }} GOARCH=${{ matrix.platform }} ./build_dist.sh \
-            --extra-small --box \
-            -o "${{ env.FILE_NAME }}-${{ matrix.os }}-${{ matrix.platform }}" ./cmd/${{ env.FILE_NAME }}
-          fi
+          GOOS=${{ matrix.os }} GOARCH=${{ matrix.platform }} ./build_dist.sh \
+          --extra-small --box \
+          -o "${{ env.FILE_NAME }}-${{ matrix.os }}-${{ matrix.platform }}" ./cmd/${{ env.FILE_NAME }}
       - name: Upload built binary
         uses: actions/upload-artifact@v4
         with:
