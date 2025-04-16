@@ -65,15 +65,17 @@ jobs:
         run: go mod download
       - name: Cross-compile
         env:
-           CGO_ENABLED: 0
+          CGO_ENABLED: 0
         run: |
           echo "▶️ Compiling for ${{ matrix.os }}/${{ matrix.platform }}"
           GOOS=${{ matrix.os }} GOARCH=${{ matrix.platform }} ./build_dist.sh \
             --extra-small --box \
-        -o "${{ env.FILE_NAME }}-${{ matrix.os }}-${{ matrix.platform }}" ./cmd/${{ env.FILE_NAME }}
-        # 验证二进制
-        file "${{ env.FILE_NAME }}-${{ matrix.os }}-${{ matrix.platform }}"
-        chmod +x "${{ env.FILE_NAME }}-${{ matrix.os }}-${{ matrix.platform }}"
+            -o "${{ env.FILE_NAME }}-${{ matrix.os }}-${{ matrix.platform }}" ./cmd/${{ env.FILE_NAME }}
+          
+          # 验证二进制
+          file "${{ env.FILE_NAME }}-${{ matrix.os }}-${{ matrix.platform }}"
+          chmod +x "${{ env.FILE_NAME }}-${{ matrix.os }}-${{ matrix.platform }}"
+
       - name: Upload built binary
         uses: actions/upload-artifact@v4
         with:
