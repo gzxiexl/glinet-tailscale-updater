@@ -51,10 +51,7 @@ jobs:
         platform:
           - arm
           - arm64
-          - mips
-          - mipsle
-          - mips64
-          - mips64le
+          - x86_64
     steps:
       - name: Checkout ${{ env.SOFTWARE_NAME }} repository
         uses: actions/checkout@v4
